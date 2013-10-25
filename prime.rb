@@ -3,58 +3,21 @@
 class MultiplcationGrid
 
   def self.output(array)
-    # print column headers
-    array.each {|x| print "\t#{x}" }
 
-    puts
+    # print column headers
+    puts "       " + ((" %7d" * array.size) % array)
+
     # print rows
-    array.each do |x|
-      line = "#{x}\t"
-      array.each do |y|
-        line += "#{x * y}\t"
-      end
-      puts line
+    array.each_with_index do |x, index|
+      print "%7d" % x
+      array.each {|y| print " %7d" % (x*y)}
+      puts ""
     end
   end
 
 end
 
 class Prime
-
-  def self.sieve_up_to(n)
-    # create a prime array of n size
-    primes = (0..n).to_a
-
-    # 0 and 1 set to nil as they are not primes
-    primes[0] = primes[1] = nil
-
-    # for each number in prime array
-    primes.each do |number|
-
-      # value may be nil, therefore do nothing
-      unless number.nil?
-
-        # otherwise, starting from the number
-        # increment by that number and mark them as non-prime (nil)
-        number.step(n, number) do |stepped_number|
-          primes[stepped_number] = nil unless stepped_number == number
-        end
-      end
-    end
-
-    # Remove all nil values so only prime values left in the array
-    return primes.compact!
-  end
-
-  def self.is_prime?(number)
-    return false if number <= 1
-
-    2.upto(Math.sqrt(number).to_i) do |n|
-      return false if number % n == 0
-    end
-
-    return true
-  end
 
   def self.take(amount_of_primes)
     primes = []
@@ -66,6 +29,18 @@ class Prime
     end
 
     return primes
+  end
+
+  private
+
+  def self.is_prime?(number)
+    return false if number <= 1
+
+    2.upto(Math.sqrt(number).to_i) do |n|
+      return false if number % n == 0
+    end
+
+    return true
   end
 
 end
