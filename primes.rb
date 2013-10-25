@@ -2,13 +2,12 @@
 
 class Prime
 
-  def self.up_to(n)
+  def self.sieve_up_to(n)
     # create a prime array of n size
     primes = (0..n).to_a
 
     # 0 and 1 set to nil as they are not primes
-    primes[0] = nil
-    primes[1] = nil
+    primes[0] = primes[1] = nil
 
     # for each number in prime array
     primes.each do |number|
@@ -29,7 +28,7 @@ class Prime
   end
 
   def self.print_grid_up_to(n)
-    primes = self.up_to(n)
+    primes = self.sieve_up_to(n)
 
     # print column headers
     primes.each {|x| print "\t#{x}" }
