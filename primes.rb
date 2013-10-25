@@ -1,35 +1,53 @@
 #!/usr/bin/env ruby
 
-def better_sieve_upto(n)
-  array = (0..n).to_a
+class Prime
 
-  array[0] = nil
-  array[1] = nil
+  def self.up_to(n)
+    # create a prime array of n size
+    primes = (0..n).to_a
 
-  array.each do |number|
-    unless number.nil?
-      number.step(n, number) do |stepped_number|
-        array[stepped_number] = nil unless stepped_number == number
+    # 0 and 1 set to nil as they are not primes
+    primes[0] = nil
+    primes[1] = nil
+
+    # for each number in prime array
+    primes.each do |number|
+
+      # value may be nil, therefore do nothing
+      unless number.nil?
+
+        # otherwise, starting from the number
+        # increment by that number and mark them as non-prime (nil)
+        number.step(n, number) do |stepped_number|
+          primes[stepped_number] = nil unless stepped_number == number
+        end
       end
     end
+
+    # Remove all nil values so only prime values left in the array
+    return primes.compact!
   end
 
-  return array.compact!
-end
+  def self.print_grid_up_to(n)
+    primes = self.up_to(n)
 
-def print_primes(primes)
-  print "\t" 
-  primes.each { |x| print "#{x}\t"}
-  puts
-  primes.each do |x|
-    line = "#{x}\t"
-    primes.each do |y|
-      line += "#{x * y}\t"
+    # print column headers
+    primes.each {|x| print "\t#{x}" }
+
+    puts
+    # print rows
+    primes.each do |x|
+      line = "#{x}\t"
+      primes.each do |y|
+        line += "#{x * y}\t"
+      end
+      puts line
     end
-    puts line
   end
 end
 
-array = better_sieve_upto(130)
-puts array.inspect
-print_primes(array)
+def print_prime_grid(n)
+  Prime.print_grid_up_to(n)
+end
+
+ARGV[0].to_i == 0 ? print_prime_grid(13) : print_prime_grid(ARGV[0].to_i)
