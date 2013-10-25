@@ -27,6 +27,26 @@ class Prime
     return primes.compact!
   end
 
+  def self.is_prime?(number)
+    return false if number <= 1
+
+    2.upto(Math.sqrt(number).to_i) do |n|
+      return false if number % n == 0
+    end
+
+    return true
+  end
+
+  def self.first(amount_of_primes)
+    primes = []
+
+    number = 1
+    while primes.size < amount_of_primes
+      primes << number if self.is_prime?(number)
+      number += 1
+    end
+  end
+
   def self.print_grid_up_to(n)
     primes = self.sieve_up_to(n)
 
@@ -45,8 +65,8 @@ class Prime
   end
 end
 
-def print_prime_grid(n)
-  Prime.print_grid_up_to(n)
-end
+# def print_prime_grid(n)
+#   Prime.print_grid_up_to(n)
+# end
 
-ARGV[0].to_i == 0 ? print_prime_grid(13) : print_prime_grid(ARGV[0].to_i)
+# ARGV[0].to_i == 0 ? print_prime_grid(13) : print_prime_grid(ARGV[0].to_i)
