@@ -3,16 +3,16 @@
 class MultiplcationGrid
 
   def self.output(array)
+    output_buffer = "       " + ((" %7d" * array.size) % array) + "\n"
 
-    # print column headers
-    puts "       " + ((" %7d" * array.size) % array)
+    array.each do |n|
+      output_buffer << "%7d" % n
+      array.each {|m| output_buffer << " %7d" % (n*m)}
 
-    # print rows
-    array.each_with_index do |x, index|
-      print "%7d" % x
-      array.each {|y| print " %7d" % (x*y)}
-      puts ""
+      output_buffer << "\n"
     end
+
+    puts output_buffer
   end
 
 end
