@@ -34,7 +34,32 @@ class Prime
     return primes
   end
 
+  def self.take_with_sieve(amount_of_primes)
+    range = prime_range_for(amount_of_primes)
+    sieve_up_to(range).slice(0, amount_of_primes)
+  end
+
   private
+
+  def self.prime_range_for(n)
+    ( (n * Math.log(n)) + (n * Math.log( Math.log(n) )) ).ceil
+  end
+
+  def self.sieve_up_to(n)
+    primes = (0..n).to_a
+    primes[0] = primes[1] = nil
+
+    primes.each do |number|
+
+      unless number.nil?
+        number.step(n, number) do |stepped_number|
+          primes[stepped_number] = nil unless stepped_number == number
+        end
+      end
+    end
+
+    return primes.compact!
+  end
 
   def self.is_prime?(number)
     return false if number <= 1
@@ -49,7 +74,7 @@ class Prime
 end
 
 def print_prime_grid(amount_of_primes)
-  primes = Prime.take(amount_of_primes)
+  primes = Prime.take_with_sieve(amount_of_primes)
   MultiplcationGrid.print(primes)
 end
 
