@@ -14,14 +14,14 @@ describe PrimeFinder do
     end
 
     it "returns the correct amount of primes" do
-      PrimeFinder.get_up_to(5).size.should    == 5
-      PrimeFinder.get_up_to(50).size.should   == 50
-      PrimeFinder.get_up_to(500).size.should  == 500
-      PrimeFinder.get_up_to(5000).size.should == 5000
+      expect(PrimeFinder.get_up_to(5).size).to eq(5)
+      expect(PrimeFinder.get_up_to(50).size).to eq(50)
+      expect(PrimeFinder.get_up_to(500).size).to eq(500)
+      expect(PrimeFinder.get_up_to(5000).size).to eq(5000)
     end
 
     it "returns an empty array if there exists no primes" do
-      PrimeFinder.get_up_to(0).should be_empty
+      expect(PrimeFinder.get_up_to(0)).to be_empty
     end
   end
 end
